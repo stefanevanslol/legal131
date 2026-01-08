@@ -1,0 +1,23 @@
+# Secrets
+.env
+.env.local
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+backend/debug.log
+
+# Node
+node_modules/
+npm-debug.log
+.next/
+out/
+
+# App Specific
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/outputs/*
+!backend/outputs/.gitkeep
