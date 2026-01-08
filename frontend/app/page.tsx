@@ -23,18 +23,8 @@ export default function Home() {
           <div className="absolute right-0 top-0 h-full w-1/3 bg-white/5 skew-x-12 transform origin-bottom-right" />
         </div>
 
-        {/* Recent Activity Grid */}
-        <div>
-          <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-            <Clock size={18} className="text-slate-400" />
-            Recent Files
-          </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Placeholder Cards */}
 
-          </div>
-        </div>
 
       </div>
     </DashboardLayout>
