@@ -41,28 +41,4 @@ export default function Home() {
   );
 }
 
-function CaseCard({ client, date, status }: { client: string, date: string, status: string }) {
-  const statusColor = {
-    'Draft': 'bg-amber-100 text-amber-700',
-    'Completed': 'bg-emerald-100 text-emerald-700',
-    'Processing': 'bg-blue-100 text-blue-700'
-  }[status] || 'bg-slate-100 text-slate-700';
 
-  return (
-    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-      <div className="flex justify-between items-start mb-4">
-        <div className="h-10 w-10 bg-slate-50 text-slate-500 rounded-lg flex items-center justify-center font-bold text-lg group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-          {client.charAt(0)}
-        </div>
-        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColor}`}>
-          {status}
-        </span>
-      </div>
-      <h4 className="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">{client}</h4>
-      <p className="text-sm text-slate-500 mb-4">Last edited: {date}</p>
-      <div className="flex items-center text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-        Open Case <ArrowRight size={16} className="ml-1" />
-      </div>
-    </div>
-  )
-}
