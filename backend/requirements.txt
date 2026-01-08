@@ -8,3 +8,4 @@ openai
 pypdf
 python-dotenv
 docxtpl
+pymupdf
