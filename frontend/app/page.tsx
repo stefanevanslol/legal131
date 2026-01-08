@@ -1,6 +1,6 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import Link from 'next/link';
-import { ArrowRight, FilePlus, Clock } from "lucide-react";
+import { FilePlus, Clock } from "lucide-react";
 
 export default function Home() {
   return (
