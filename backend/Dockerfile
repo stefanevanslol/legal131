@@ -3,6 +3,7 @@ FROM python:3.10-slim
 
 # Set working directory
 WORKDIR /app
+ENV PYTHONPATH=/app
 
 # Install system dependencies (Tesseract OCR, Poppler for pdf2image)
 RUN apt-get update && apt-get install -y \
