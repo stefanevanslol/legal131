@@ -9,10 +9,9 @@ logger = logging.getLogger(__name__)
 class AIAnalyzer:
     def __init__(self, api_key: str = None):
         # Hardcoded for debugging purposes as requested
-        self.api_key = "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"
+        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not self.api_key:
-             # In a real app, you might raise an error or warn
-             pass
+             logger.warning("OPENAI_API_KEY not found in environment variables.")
         # Initialize the new v1.0 client
         self.client = AsyncOpenAI(api_key=self.api_key)
 
