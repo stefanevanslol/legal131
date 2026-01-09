@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import DashboardLayout from "@/components/DashboardLayout";
-import { UploadCloud, FileText, CheckCircle2, Loader2, Play, X } from "lucide-react";
+import { CloudUpload, FileText, CheckCircle2, Loader2, Play, X } from "lucide-react";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -157,7 +157,7 @@ export default function NewCasePage() {
                                 // Upload View
                                 <>
                                     <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-6 text-blue-500 transition-transform hover:scale-105 duration-300">
-                                        <UploadCloud size={32} />
+                                        <CloudUpload size={32} />
                                     </div>
 
                                     <h3 className="text-xl font-medium text-slate-800 mb-2">Upload Medical Records</h3>

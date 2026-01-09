@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, UploadCloud, FileText, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, CloudUpload, FileText, Settings, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils'; // Assuming you have a utils file for clsx/tailwind-merge
 
 export default function DashboardLayout({
@@ -22,7 +22,7 @@ export default function DashboardLayout({
 
                 <nav className="flex-1 p-4 space-y-2">
                     <NavItem href="/" icon={<LayoutDashboard size={20} />} label="Overview" />
-                    <NavItem href="/new-case" icon={<UploadCloud size={20} />} label="New Case" />
+                    <NavItem href="/new-case" icon={<CloudUpload size={20} />} label="New Case" />
 
                 </nav>
 
