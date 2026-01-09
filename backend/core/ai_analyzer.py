@@ -69,8 +69,8 @@ Impression:
 At L3-4, there is bulging of the disc. This results in an anterior impression on the thecal sac. 
 At L4-5, there is bulging of the disc. This results in an anterior impression on the thecal sac. Mild spinal canal stenosis. Mild neural foraminal stenosis. Bilateral facet osteoarthritis. 
 At L5-S1, there is a posterior central/left paracentral disc herniation which pushes on the descending nerve roots, particularly the left descending nerve roots with T2 hyperintense signal seen within the posterior disc from edema and associated annular fissure. There is severe spinal canal stenosis. Moderate left neural foraminal stenosis. Mild right neural foraminal stenosis. There is edema seen in the interspinous ligament from interspinous ligament tear.
+At L5-S1, there is a posterior central/left paracentral disc herniation which pushes on the descending nerve roots, particularly the left descending nerve roots with T2 hyperintense signal seen within the posterior disc from edema and associated annular fissure. There is severe spinal canal stenosis. Moderate left neural foraminal stenosis. Mild right neural foraminal stenosis. There is edema seen in the interspinous ligament from interspinous ligament tear.
 
-When generating this part of the document, please make important parts bold enclosing it with **. For example: At **L3-4**, there is bulging of the disc. This results in an anterior impression on the thecal sac.
         "TreatmentsAndDiagnosses2": Continuation of treatment description, progress notes, or additional diagnoses found later.
         
         "clientDescription": A narrative description of the client (e.g. "Mr. Doe, a 45-year-old Male").

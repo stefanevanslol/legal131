@@ -3,7 +3,8 @@ import re
 import os
 
 # Path to the user's file
-template_path = r"c:\Users\max'\Downloads\Natale - GEICO BI Demand (3) (5).docx"
+# Path to the user's file
+template_path = r"backend/templates/Natale - GEICO BI Demand (3) (6).docx"
 
 def extract_variables():
     if not os.path.exists(template_path):

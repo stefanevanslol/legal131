@@ -43,12 +43,24 @@ class DocumentGenerator:
         # Clean keys for Jinja2 (remove trailing spaces like in "ClaimNo ")
         # And process rich text
         context = {}
+        keys_to_skip_formatting = [
+            "TreatmentsAndDiagnosses", 
+            "TreatmentsAndDiagnosses2", 
+            "TreatmentsAndDiagnoses", 
+            "TreatmentsAndDiagnoses2"
+        ]
+
         for k, v in data.items():
             clean_key = k.strip()
-            if isinstance(v, str) and "**" in v:
+            
+            # Skip RichText for specific keys (render as plain text, strip markdown)
+            if clean_key in keys_to_skip_formatting:
+                val = v.replace("**", "") if isinstance(v, str) else v
+            elif isinstance(v, str) and "**" in v:
                 val = self._process_rich_text(v)
             else:
                 val = v
+            
             context[clean_key] = val
 
         # DUAL MAPPING STRATEGY: 
