@@ -46,9 +46,22 @@ class DocumentGenerator:
         for k, v in data.items():
             clean_key = k.strip()
             if isinstance(v, str) and "**" in v:
-                context[clean_key] = self._process_rich_text(v)
+                val = self._process_rich_text(v)
             else:
-                context[clean_key] = v
+                val = v
+            context[clean_key] = val
+
+        # DUAL MAPPING STRATEGY: 
+        # Ensure both spellings (Diagnoses/Diagnosses) exist to match whatever the template has.
+        if "TreatmentsAndDiagnosses" in context and "TreatmentsAndDiagnoses" not in context:
+            context["TreatmentsAndDiagnoses"] = context["TreatmentsAndDiagnosses"]
+        elif "TreatmentsAndDiagnoses" in context and "TreatmentsAndDiagnosses" not in context:
+            context["TreatmentsAndDiagnosses"] = context["TreatmentsAndDiagnoses"]
+            
+        if "TreatmentsAndDiagnosses2" in context and "TreatmentsAndDiagnoses2" not in context:
+            context["TreatmentsAndDiagnoses2"] = context["TreatmentsAndDiagnosses2"]
+        elif "TreatmentsAndDiagnoses2" in context and "TreatmentsAndDiagnosses2" not in context:
+            context["TreatmentsAndDiagnosses2"] = context["TreatmentsAndDiagnoses2"]
         
         # Render the template
         doc.render(context)
