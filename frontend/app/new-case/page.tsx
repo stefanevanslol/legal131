@@ -73,8 +73,8 @@ export default function NewCasePage() {
 
         try {
             // 1. Analyze
-            // Direct file upload to backend to avoid Next.js proxy timeout
-            const res = await fetch('http://localhost:8000/api/analyze', {
+            // Use relative path so it works in Prod (Nginx) and Dev (Next.js proxy)
+            const res = await fetch('/api/analyze', {
                 method: 'POST',
                 body: formData,
             });
@@ -102,7 +102,7 @@ export default function NewCasePage() {
     const generateDocument = async (dataToUse: AnalysisResult) => {
         if (!dataToUse) return;
         try {
-            const res = await fetch('http://localhost:8000/api/generate', {
+            const res = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ data: dataToUse }),
