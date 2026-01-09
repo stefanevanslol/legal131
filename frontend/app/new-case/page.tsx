@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import DashboardLayout from "@/components/DashboardLayout";
-import { UploadCloud, FileText, CheckCircle2, Loader2, Play } from "lucide-react";
+import { CloudUpload, FileText, CheckCircle2, Loader2, Play, X } from "lucide-react";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
