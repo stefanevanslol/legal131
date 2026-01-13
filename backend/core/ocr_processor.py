@@ -1,4 +1,4 @@
-import pytesseract
+import google.generativeai as genai
 import logging
 import io
 import os
@@ -9,20 +9,19 @@ logger = logging.getLogger(__name__)
 
 class OCRProcessor:
     def __init__(self, tesseract_cmd: str = None):
-        if tesseract_cmd:
-            pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
+        # Tesseract cmd is legacy, ignoring it but keeping arg for compatibility
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            logger.warning("GOOGLE_API_KEY not found. OCR for scanned docs will fail.")
         else:
-            # Check standard Windows location
-            default_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-            if os.path.exists(default_path):
-                pytesseract.pytesseract.tesseract_cmd = default_path
+            genai.configure(api_key=api_key)
+            self.model = genai.GenerativeModel("gemini-2.0-flash-exp")
 
     def extract_text_from_pdf(self, file_content: bytes) -> str:
         """
-        Robust text extraction using PyMuPDF (Fitz).
+        Robust text extraction using PyMuPDF (Fitz) + Gemini 2.0 Flash.
         1. Tries to extract digital text directly.
-        2. If text is sparse (< 50 chars) or empty, renders page as image and runs Tesseract OCR.
-        3. No Poppler dependency required.
+        2. If text is sparse (< 400 chars), renders page as image and uses Gemini 2.0 Flash.
         """
         text = ""
         
@@ -36,35 +35,41 @@ class OCRProcessor:
                     clean_text = page_text.strip()
                     
                     # Heuristic: If text is empty OR very short (likely artifacts/watermarks in a scan)
-                    # and likely has images, we run OCR.
-                    # Increased threshold to 400 chars (approx 1 paragraph) to be safer.
+                    # and likely has images, we run OCR (Gemini).
                     if len(clean_text) > 400:
                         # We found substantial digital text! Use it.
                         text += f"\n--- Page {i+1} (Digital) ---\n{page_text}"
                     else:
                         # 2. Sparse or no text found? Likely a scan or mixed content.
-                        logger.info(f"Page {i+1}: Digital text sparse ({len(clean_text)} chars). Running OCR.")
+                        logger.info(f"Page {i+1}: Digital text sparse ({len(clean_text)} chars). Running Gemini 2.0 Flash OCR.")
                         
-                        # Zoom factor for better OCR quality (3.0 = 300% DPI approx ~216-300 DPI)
-                        # Higher DPI is crucial for medical records which often have small fonts or poor scan quality.
-                        matrix = fitz.Matrix(3.0, 3.0)
+                        # Zoom factor for better image quality (2.0 is usually enough for Vision models)
+                        matrix = fitz.Matrix(2.0, 2.0)
                         pix = page.get_pixmap(matrix=matrix)
                         
                         # Convert to PIL Image
                         img_data = pix.tobytes("png")
                         image = Image.open(io.BytesIO(img_data))
                         
-                        ocr_text = pytesseract.image_to_string(image)
-                        
+                        try:
+                            # Call Gemini 2.0 Flash
+                            response = self.model.generate_content([
+                                "Transcribe the text from this medical record page exactly. Do not add any commentary.", 
+                                image
+                            ])
+                            ocr_text = response.text
+                        except Exception as e:
+                            logger.error(f"Gemini OCR failed for page {i+1}: {e}")
+                            ocr_text = "[Error extracting text from scan via Gemini]"
+
                         # Combine both just in case digital text had some valid headers/metadata
                         if clean_text:
                             text += f"\n--- Page {i+1} (Digital Artifacts) ---\n{clean_text}"
                             
-                        text += f"\n--- Page {i+1} (OCR) ---\n{ocr_text}"
+                        text += f"\n--- Page {i+1} (Gemini OCR) ---\n{ocr_text}"
 
         except Exception as e:
             logger.error(f"PDF Processing failed: {e}")
-            # Do not raise, return what we have or error message so analysis can continue
             return f"[Error processing PDF: {e}]"
 
         # Final check
@@ -77,7 +82,11 @@ class OCRProcessor:
     def extract_text_from_image(self, image_content: bytes) -> str:
         try:
             image = Image.open(io.BytesIO(image_content))
-            return pytesseract.image_to_string(image)
+            response = self.model.generate_content([
+                "Transcribe the text from this image exactly. Do not add any commentary.", 
+                image
+            ])
+            return response.text
         except Exception as e:
             logger.error(f"Image OCR failed: {e}")
             raise e

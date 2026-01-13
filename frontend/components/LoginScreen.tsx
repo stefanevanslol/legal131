@@ -24,6 +24,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
 
     return (
         <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+        
             <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
                 <div className="bg-blue-600 p-8 text-center">
                     <h1 className="text-3xl font-serif font-bold text-white mb-2">Conger Law AI</h1>

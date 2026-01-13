@@ -9,3 +9,4 @@ pypdf
 python-dotenv
 docxtpl
 pymupdf
+google-generativeai
