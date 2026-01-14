@@ -53,7 +53,7 @@ Macon, GA 31208
         "DatesOfTreaments": Date range of treatments (e.g., "January 1, 2023 through March 15, 2023").
         
         "complaintsByclient": A List or Paragraph describing the specific physical complaints reported by the client (e.g. "Severe neck pain radiating to shoulder, lower back stiffness"). Example: "Mr. John Does presented to Dr. Jane Doe, D.C., on May 20, 2024, with complaints of headaches, neck pain radiating into traps, upper back pain, mid back pain, lower back pain that radiates down his left leg into his foot, and right knee pain. After examining Mr. John Doe, Dr. Jonas Doe recommended continued chiropractic care and ordered an MRIs of the lumbar and cervical spine. Mr. Natale continues to receive conservative care for his injuries with Dr. Tinari.
-        "TreatmentsAndDiagnosses": A detailed section describing the initial diagnoses and the treatment plan derived from the records. Example: Cervical MRI
+        "TreatmentsAndDiagnosses": A detailed section describing the initial diagnoses and the treatment plan derived from the records. Do not make it vague or concise. explain what each doctor did and when in detail.Example: Cervical MRI
 "Cervical MRI
 Impression:
 
